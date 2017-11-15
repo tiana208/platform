@@ -38,6 +38,8 @@ function Level(plan) {
       // Because there is a third case (space ' '), use an "else if" instead of "else"
       else if (ch == "!")
         fieldType = "lava";
+	else if (ch == "p")
+		fieldType = "portal";
 
       // "Push" the fieldType, which is a string, onto the gridLine array (at the end).
       gridLine.push(fieldType);
@@ -107,6 +109,14 @@ function Lava(pos, ch) {
   }
 }
 Lava.prototype.type = "lava";
+
+AN ATTEMPT
+function Portal(pos, ch){
+	this.pos = pos;
+	this.size = new Vector (1,1);
+	this.repeatPos = pos;
+}
+Portal.prototype = 'portal'; 
 
 // Helper function to easily create an element of a type provided 
 function elt(name, className) {
@@ -235,6 +245,7 @@ Level.prototype.obstacleAt = function(pos, size) {
   }
 };
 
+
 // Collision detection for actors is handled separately from 
 // tiles. 
 Level.prototype.actorAt = function(actor) {
@@ -283,6 +294,15 @@ Lava.prototype.act = function(step, level) {
     this.speed = this.speed.times(-1);
 };
 
+Portal.prototype.act = function(step, level) {
+  var newPos = this.pos.plus(this.speed.times(step));
+  if (!level.obstacleAt(newPos, this.size))
+    this.pos = newPos;
+  else if (this.repeatPos)
+    this.pos = this.repeatPos;
+  else
+    this.speed = this.speed.times(-1);
+}; 
 
 var maxStep = 0.05;
 
@@ -345,6 +365,9 @@ Player.prototype.moveY = function(step, level, keys) {
       this.speed.y = 0;
   } else {
     this.pos = newPos;
+  }
+   if (obstacle == 'portal') {
+		this.pos = new Vector (5,5);
   }
 };
 
