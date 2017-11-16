@@ -347,7 +347,7 @@ Player.prototype.moveX = function(step, level, keys) {
 	
 	if (obstacle == 'portal') {
 this.pos = new Vector (85,5);
-	}
+}
 };
 
 var gravity = 30;
