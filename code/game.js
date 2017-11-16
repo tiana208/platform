@@ -110,11 +110,11 @@ function Lava(pos, ch) {
 }
 Lava.prototype.type = "lava";
 
-AN ATTEMPT
+/*AN ATTEMPT*/
 function Portal(pos, ch){
 	this.pos = pos;
 	this.size = new Vector (1,1);
-	this.repeatPos = pos;
+	this.repeatPos = pos; 
 }
 Portal.prototype = 'portal'; 
 
@@ -293,7 +293,7 @@ Lava.prototype.act = function(step, level) {
   else
     this.speed = this.speed.times(-1);
 };
-
+/*
 Portal.prototype.act = function(step, level) {
   var newPos = this.pos.plus(this.speed.times(step));
   if (!level.obstacleAt(newPos, this.size))
@@ -303,7 +303,7 @@ Portal.prototype.act = function(step, level) {
   else
     this.speed = this.speed.times(-1);
 }; 
-
+*/
 var maxStep = 0.05;
 
 var wobbleSpeed = 8, wobbleDist = 0.07;
@@ -367,7 +367,7 @@ Player.prototype.moveY = function(step, level, keys) {
     this.pos = newPos;
   }
    if (obstacle == 'portal') {
-		this.pos = new Vector (5,5);
+		this.pos = new Vector (85,5);
   }
 };
 
