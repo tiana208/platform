@@ -344,6 +344,10 @@ Player.prototype.moveX = function(step, level, keys) {
   else
     // Move if there's not an obstacle there.
     this.pos = newPos;
+	
+	if (obstacle == 'portal') {
+this.pos = new Vector (85,5);
+	}
 };
 
 var gravity = 30;
@@ -367,7 +371,7 @@ Player.prototype.moveY = function(step, level, keys) {
     this.pos = newPos;
   }
    if (obstacle == 'portal') {
-		this.pos = new Vector (85,5);
+		this.pos = new Vector (85,15);
   }
 };
 
