@@ -2,7 +2,9 @@
 var actorChars = {
   "@": Player,
   "o": Coin, // A coin will wobble up and down
-  "=": Lava, "|": Lava, "v": Lava  
+  "=": Lava, "|": Lava, "v": Lava, 
+  "j": Jump
+
 };
 
 function Level(plan) {
@@ -116,7 +118,16 @@ function Portal(pos, ch){
 	this.size = new Vector (1,1);
 	this.repeatPos = pos; 
 }
-Portal.prototype = 'portal'; 
+Portal.prototype.type = 'portal';
+
+
+function Jump(pos){
+  this.pos = pos;
+  this.size = new Vector(0.6, 0.6);
+  this.wobble = Math.random() * Math.PI * 2;
+}
+Jump.prototype.type = "jump"; 
+ 
 
 // Helper function to easily create an element of a type provided 
 function elt(name, className) {
@@ -401,6 +412,9 @@ Level.prototype.playerTouched = function(type, actor) {
     this.actors = this.actors.filter(function(other) {
       return other != actor;
     });
+	if (type == "jump") {
+		gravity = 35;
+	}
     // If there aren't any coins left, player wins
     if (!this.actors.some(function(actor) {
            return actor.type == "coin";
